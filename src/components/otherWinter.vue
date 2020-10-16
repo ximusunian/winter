@@ -62,7 +62,7 @@
                   </div>
                 </div>
               </div>
-              <div v-if="index === 0">
+              <!-- <div v-if="index === 0">
                 <div class="nav-container">
                   <img
                     src="../assets/nav1.png"
@@ -72,7 +72,7 @@
                   >
                   <img src="../assets/nav2.png" alt="" @click="toFirstUrl">
                 </div>
-              </div>
+              </div> -->
               <!-- 冬季优品 -->
               <div v-if="item.key == 29 && index > 0">
                 <div class="winter-recommend">
@@ -158,7 +158,7 @@ export default {
       weChat: false,
       allnfo: {},
       commendData: {},
-      navList: [{ name: "翻牌有礼", key: "a" }]
+      navList: [{ name: "冬季新品", key: "a" }]
     };
   },
   created() {
@@ -717,7 +717,7 @@ ul {
   font-size: 24px;
   color: #fff !important;
   border-radius: 4px;
-  padding: 5px 10px;
+  padding: 5px 8px;
 }
 .van-tabs__line {
   display: none;
@@ -745,6 +745,7 @@ ul {
   line-height: 40px;
   /* margin: 5px 0; */
   margin-bottom: 5px;
+  padding: 0;
 }
 .van-tabs__wrap--scrollable .van-tabs__nav {
   padding: 8px 34px;
