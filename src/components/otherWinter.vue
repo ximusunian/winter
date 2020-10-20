@@ -709,7 +709,7 @@ ul {
 .shoe-list .content {
   padding-left: 10px;
   box-sizing: border-box;
-  height: 1.8rem;
+  height: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
