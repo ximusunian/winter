@@ -1,7 +1,7 @@
 <template>
   <div class="antum">
     <div class="loding_box" v-if="isLoding">
-      <van-loading type="spinner" class="loding"/>
+      <van-loading type="spinner" class="loding" />
     </div>
     <!-- 底部分类商品 -->
     <div class="winter_bottom_pro">
@@ -14,7 +14,7 @@
         title-inactive-color
         title-active-color="#fff"
       >
-        <img :src="allnfo.springImg" alt="" class="header">
+        <img :src="allnfo.springImg" alt="" class="header" />
         <div class="spec_content">
           <van-tab
             v-for="(item, index) in cateList"
@@ -28,32 +28,56 @@
                 <span>{{ item.name }}</span>
               </div>
               <!-- 列表 -->
-              <div v-if="item.key != 29 && index > 0" class="shoe-list-container">
+              <div
+                v-if="item.key != 29 && index > 0"
+                class="shoe-list-container"
+              >
                 <div
                   class="shoe-list"
                   v-for="(child, i) in oneList[index - 1].list"
                   :key="i"
                   @click="goProductDetail(child.productCode)"
                 >
-                  <div style="position: relative;">
-                    <div style="position: relative;">
-                      <img v-if="child.newTag" :src="child.newTag" class="tagImg" alt="">
-                      <img :src="child.pic" alt="" class="shop">
+                  <div style="position: relative">
+                    <div style="position: relative">
+                      <img
+                        v-if="child.newTag"
+                        :src="child.newTag"
+                        class="tagImg"
+                        alt=""
+                      />
+                      <img :src="child.pic" alt="" class="shop" />
                       <!-- 现货会 -->
-                      <div class="tap" v-show="child.themeOpen && child.themeEndTime - nowTime > 0">
+                      <div
+                        class="tap"
+                        v-show="
+                          child.themeOpen && child.themeEndTime - nowTime > 0
+                        "
+                      >
                         <div class="tap_img">
-                          <div class="top_dec small-font">{{child.theme}}</div>
-                          <div class="bottom_price">¥{{child.spotMeetingPrice}}</div>
+                          <div class="top_dec small-font">
+                            {{ child.theme }}
+                          </div>
+                          <div class="bottom_price">
+                            ¥{{ child.spotMeetingPrice }}
+                          </div>
                         </div>
                         <div class="time">
-                          <div
-                            class="left_time"
-                          >{{child.themeStartTime | startTime(child.themeEndTime,that,child.themeOpen)}}</div>
+                          <div class="left_time">
+                            {{
+                              child.themeStartTime
+                                | startTime(
+                                  child.themeEndTime,
+                                  that,
+                                  child.themeOpen
+                                )
+                            }}
+                          </div>
                         </div>
                       </div>
                     </div>
                     <div class="content">
-                      <div class="content-title">{{ child.name }}</div>
+                      <div :class="currentSjc > item.themeEndTime ? 'content-title':'content-title-normal'">{{ child.name }}</div>
                       <div class="common-tag-parent" v-show="child.themeTag">
                         <div class="coommon-tag">{{ child.themeTag }}</div>
                       </div>
@@ -92,25 +116,43 @@
                       </div>
                     </div> -->
                     <div class="word-contianer">
-                      <div class="word1">{{ item.name }}</div>
-                      <div class="common-tag-parent2">
-                        <div class="coommon-tag" v-if="item.themeTag">{{ item.themeTag }}</div>
+                      <div>
+                        <div :class="currentSjc > item.themeEndTime ? 'normal' : 'word1' ">
+                          {{ item.name }}
+                        </div>
+                        <div :class="item.themeTag? 'common-tag-parent2' : 'tags'">
+                          <div class="coommon-tag" v-if="item.themeTag">
+                            {{ item.themeTag }}
+                          </div>
+                        </div>
                       </div>
                       <div class="flex-between">
-                        <div style="display:flex;align-items:baseline;">
+                        <div style="display: flex; align-items: baseline">
                           <span class="word2">¥</span>
-                          <span class="word3">{{ item.spotMeetingPrice }}</span>
-                          <span class="word4" v-if="item.price">¥{{ item.price }}</span>
+                          <span class="word3">{{
+                            currentSjc > item.themeEndTime
+                              ? item.price
+                              : item.spotMeetingPrice
+                          }}</span>
+                          <span
+                            class="word4"
+                            v-if="item.price && item.themeEndTime > currentSjc"
+                            >¥{{ item.price }}</span
+                          >
                         </div>
                         <div>
-                          <img src="../assets/btn_img2x.png" style="width:79px;height:22px" alt="">
+                          <img
+                            src="../assets/btn_img2x.png"
+                            style="width: 79px; height: 22px"
+                            alt=""
+                          />
                           <!-- 立即抢购
                           <img src="../assets/arrow_right.png" alt="">-->
                         </div>
                       </div>
                     </div>
                     <div class="shop">
-                      <img :src="item.pic" alt="" class="">
+                      <img :src="item.pic" alt="" class="" />
                       <div class="bottom" v-if="false"></div>
                     </div>
                   </div>
@@ -158,7 +200,7 @@ export default {
       weChat: false,
       allnfo: {},
       commendData: {},
-      navList: [{ name: "冬季新品", key: "a" }]
+      navList: [{ name: "冬季新品", key: "a" }],
     };
   },
   created() {
@@ -173,7 +215,7 @@ export default {
     let ua = navigator.userAgent.toLowerCase();
     if (ua.match(/MicroMessenger/i) == "micromessenger") {
       //ios的ua中无miniProgram，但都有MicroMessenger（表示是微信浏览器）
-      wx.miniProgram.getEnv(res => {
+      wx.miniProgram.getEnv((res) => {
         this.weChat = true;
         // if (res.miniprogram) {
         //   wx.miniProgram.navigateTo({
@@ -229,7 +271,7 @@ export default {
       } else {
         return str;
       }
-    }
+    },
   },
   methods: {
     toMessage() {
@@ -240,11 +282,11 @@ export default {
       let ua = navigator.userAgent.toLowerCase();
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
         //ios的ua中无miniProgram，但都有MicroMessenger（表示是微信浏览器）
-        wx.miniProgram.getEnv(res => {
+        wx.miniProgram.getEnv((res) => {
           this.weChat = true;
           if (res.miniprogram) {
             wx.miniProgram.navigateTo({
-              url: `/pages/antum/index?jumpUrl=${this.allnfo.firstUrl}`
+              url: `/pages/antum/index?jumpUrl=${this.allnfo.firstUrl}`,
             });
           } else {
             // alert("不在小程序里");
@@ -262,7 +304,7 @@ export default {
     getWinterProduct() {
       https
         .fetchPost("/huitongyi/app/product/zone/winterGetProduct")
-        .then(res => {
+        .then((res) => {
           if (res.result == 100) {
             this.allnfo = res.data;
             this.commendData = res.data.list[0];
@@ -289,7 +331,7 @@ export default {
       // 4. Y年m月d日 H时i分
       formats = formats || "Y-m-d";
 
-      var zero = function(value, m) {
+      var zero = function (value, m) {
         if (m) {
           return value;
         }
@@ -309,14 +351,14 @@ export default {
       var minite = zero(myDate.getMinutes());
       var second = zero(myDate.getSeconds());
 
-      return formats.replace(/Y|m|d|H|i|s/gi, function(matches) {
+      return formats.replace(/Y|m|d|H|i|s/gi, function (matches) {
         return {
           Y: year,
           m: month,
           d: day,
           H: hour,
           i: minite,
-          s: second
+          s: second,
         }[matches];
       });
     },
@@ -326,7 +368,7 @@ export default {
           "/huitongyi/app/product/zone/winterGetProductClassifyData",
           {}
         )
-        .then(res => {
+        .then((res) => {
           if (res.result == 100) {
             this.oneList = res.data.model;
             console.log(this.oneList);
@@ -334,23 +376,23 @@ export default {
             this.isLoding = false;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
     /**
      *去详情
      **/
-    goProductDetail: function(prodCode) {
+    goProductDetail: function (prodCode) {
       /*********/
       let ua = navigator.userAgent.toLowerCase();
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
         //ios的ua中无miniProgram，但都有MicroMessenger（表示是微信浏览器）
-        wx.miniProgram.getEnv(res => {
+        wx.miniProgram.getEnv((res) => {
           this.weChat = true;
           if (res.miniprogram) {
             wx.miniProgram.navigateTo({
-              url: `/pages/goods_details/index?prodCode=${prodCode}&&classifyId=-1`
+              url: `/pages/goods_details/index?prodCode=${prodCode}&&classifyId=-1`,
             });
           } else {
             // alert("不在小程序里");
@@ -362,12 +404,12 @@ export default {
         let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isIOS) {
           window.webkit.messageHandlers.goDetail.postMessage({
-            prodCode: prodCode //vue给iOS传值
+            prodCode: prodCode, //vue给iOS传值
           });
         }
         if (isAndroid) {
           let strParameter = JSON.stringify({
-            prodCode: prodCode
+            prodCode: prodCode,
           });
           window.goDetail.OnClick(strParameter);
         }
@@ -377,8 +419,8 @@ export default {
     goBlock(id, index) {
       document.getElementById(id).scrollIntoView({ block: "start" });
       this.currentIndex = index;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scope>
@@ -389,6 +431,9 @@ export default {
 .common-tag-parent2 {
   height: 39px;
   margin: 15px 0 40px 0;
+}
+.tags {
+  height: 39px;
 }
 .antum {
   background: #c5ecfd;
@@ -565,6 +610,14 @@ ul {
   overflow: hidden;
   word-break: break-all;
 }
+.winter-recommend .normal {
+  font-size: 26px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .ontent-title {
   font-size: 24px;
   white-space: nowrap;
@@ -656,6 +709,10 @@ ul {
 .shoe-list .content {
   padding-left: 10px;
   box-sizing: border-box;
+  height: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 /* .shoe-list-container > div:nth-child(3n-1) {
   margin: 0 14px 14px 14px;
@@ -697,6 +754,9 @@ ul {
   width: 100%;
 }
 .word-contianer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: calc(100% - 200px);
   max-width: 5.2rem;
 }
@@ -809,7 +869,7 @@ ul {
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
-  margin: 13px 0 5px 5px
+  margin: 13px 0 5px 5px;
 }
 .bottom_price {
   height: 25px;
@@ -834,12 +894,22 @@ ul {
   height: 28px;
   margin: 18px 0 15px 0;
 }
+.content-title-normal {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 30px;
+  box-sizing: border-box;
+  padding: 0 0.1rem;
+}
 </style>
 <style>
 .van-toast--html,
 .van-toast--text {
   width: 70%;
   height: 1.3rem;
-  font-size: 30px!important;
+  font-size: 30px !important;
 }
 </style>
