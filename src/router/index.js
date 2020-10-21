@@ -18,8 +18,16 @@ export default new Router({
       name: 'otherWinter',
       meta: {
         title: "冬季新品首发专场-暖冬首选单品"
+      },
+        component:resolve=>require(['@/components/otherWinter'],resolve)
     },
-      component:resolve=>require(['@/components/otherWinter'],resolve)
-  }
+    {
+      path: '/newPage',
+      name: 'newPage',
+      meta: {
+        title: "退换货规则通知"
+      },
+        component:resolve=>require(['@/components/newPage'],resolve)
+    }
   ]
 })
